@@ -1,0 +1,38 @@
+[project]
+name = "google-calendar-fast-mcp"
+version = "0.1.0"
+description = "Google Calendar MCP server for Claude Code"
+requires-python = ">=3.13"
+dependencies = [
+    "fastmcp>=2.14.0,<3.0.0",
+    "google-api-python-client>=2.100.0",
+    "google-auth>=2.23.0",
+    "google-auth-oauthlib>=1.1.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+]
+
+[project.scripts]
+google-calendar-fast-mcp = "google_calendar_fast_mcp.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.8.13,<0.9.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.4.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
