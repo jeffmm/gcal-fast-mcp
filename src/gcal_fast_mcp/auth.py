@@ -37,7 +37,16 @@ def authenticate(redirect_uri: str | None = None) -> None:
     creds = flow.run_local_server(
         port=3000,
         open_browser=True,
+        prompt="consent",
     )
+
+    if not creds.refresh_token:
+        print(
+            "Error: Google did not return a refresh_token. "
+            "Revoke access at https://myaccount.google.com/permissions and re-run auth.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     CREDENTIALS_PATH.write_text(creds.to_json())
     print("Authentication completed successfully.")
